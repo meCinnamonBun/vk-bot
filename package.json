@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "VK API bot",
+  "main": "Core/index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "node-vk-bot-api": "^3.3.7",
+    "vk-io": "^4.1.1",
+    "vksdk": "^5.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "start": "nodemon Core/index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

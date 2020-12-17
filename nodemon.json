@@ -1,0 +1,7 @@
+{
+  "ignore": ["node_modules"],
+  "env": {
+    "TOKEN": "5bdd6265e3454484d8cb72242ffe01f9f44bf8c24329957ae40878ef71ea8460488a5390ac63642586934",
+    "PORT": 3000
+  }
+}
