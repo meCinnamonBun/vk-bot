@@ -46,6 +46,11 @@ const answerer = new Answerer();
 //         ctx.reply('Hello!');
 //     }
 // });
+bot.event('/start', (ctx) => {
+    ctx.reply('Все операции представлены на клавиатуре. В процессе выполнения напишите "отмена" для прерывания текущей операции');
+    setTimeout(() => sendKeyboard(ctx.message.user_id), 500);
+});
+
 
 bot.event('message_edit', (ctx) => {
     ctx.reply('Your message was edited');
@@ -54,26 +59,18 @@ bot.event('message_edit', (ctx) => {
 bot.event('message_new', async (ctx) => {
     let body = ctx.message.body
     answerer.setUserMessage(body)
-    ctx.reply(await answerer.getAnswer())
+
+    let answer = await answerer.getAnswer()
+
+    // if (answer === "Нет такой команды") sendKeyboard(ctx.message.user_id)
+
+    ctx.reply(answer)
 
     const service = await answerer.getCurService()
     console.log(service)
     if (service === null){
-        await sendKeyboard(ctx.message.user_id)
+        setTimeout(() => sendKeyboard(ctx.message.user_id), 500);
     }
-
-    // если нет сервиса отправить начальное сообщение
-
-    // if (body.includes("спорт")) {
-    //     ctx.reply('Select your sport', null, Markup
-    //         .keyboard([
-    //             'Football',
-    //             'Basketball',
-    //         ])
-    //         .oneTime());
-    // } else {
-    //     ctx.reply('Hello!');
-    // }
 })
 
 bot.startPolling((err) => {
@@ -82,7 +79,7 @@ bot.startPolling((err) => {
     }
 });
 
-sendKeyboard = async (id) => {
+sendKeyboard = (id) => {
     bot.sendMessage(id, "Выберите операцию", null, Markup
         .keyboard([
             'Создать',

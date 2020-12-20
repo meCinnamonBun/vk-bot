@@ -31,7 +31,8 @@ module.exports = class BotUpdateService {
     }
 
     askDate = async () => {
-        if (await this.nameIsValid(this.message)) {
+        let valid = await this.nameIsValid(this.message)
+        if (valid) {
             this.name = this.message
             this.curStep++
             return "Мероприятие найдено. Введите новую дату"
@@ -61,7 +62,7 @@ module.exports = class BotUpdateService {
     nameIsValid = async (name) => {
         const dbWorker = new DBWorker()
         const event = await dbWorker.getEventByName(name)
-        return event !== "";
+        return event.length > 0;
     }
 
     tryWriteData = async () => {
